@@ -118,7 +118,7 @@ fbAuth.onAuthStateChanged(user=>{
  if(unsub){unsub();unsub=null;}signedIn=false;setBusy(false);gate.style.display='flex';
  if(!user){message.textContent='';setStatus('Inicia sesión para conectar con Firebase.');return;}
  if((user.email||'').toLowerCase()!==adminEmail||!user.emailVerified){message.textContent='Esta cuenta no está autorizada como administradora. Usa la cuenta administradora del Club.';fbAuth.signOut();return;}
- signedIn=true;gate.style.display='none';setStatus('Verificando acceso a Firestore…');
+ signedIn=true;setBusy(false);gate.style.display='none';setStatus('Verificando acceso a Firestore…');
  unsub=fbDb.collection('actividades').onSnapshot(updateFromCloud,e=>{setStatus('Error de Firestore: '+safeMessage(e));gate.style.display='flex';message.textContent='No se pudo consultar Firestore: '+safeMessage(e);});
 });
 document.getElementById('firebaseLogout').onclick=()=>fbAuth.signOut();
